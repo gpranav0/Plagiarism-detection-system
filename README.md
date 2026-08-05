@@ -2,6 +2,8 @@
 
 This Java 17 desktop application compares student submissions with reference documents and produces explainable evidence for academic-integrity review. Its primary interface is a polished Java Swing workspace; a legacy console and deterministic demo remain available for automation. The system combines exact phrase matching, word and character shingles, fuzzy passage alignment, deterministic MinHash candidate selection, graph analysis, risk ranking, capacity-aware reviewer assignment, reporting, and algorithm benchmarks.
 
+For a report-style explanation of the architecture, algorithms, scoring, workflow, testing, and limitations, see `PROJECT_EXPLANATION.md`.
+
 The application is a decision-support tool, not an automated misconduct judge. A high score means that a case deserves human attention. It does not establish authorship, intent, inadequate citation, or misconduct. Reviewers should inspect the reported passages in context, consider legitimate quotation, standard terminology, shared assignment wording, collaboration rules, and citations, and give the student an appropriate opportunity to respond.
 
 ## Requirements
@@ -114,6 +116,7 @@ AdvancedPlagiarismDetectionSystem/
 ├── run.ps1                       Builds and starts the desktop UI, console, or demo
 ├── test.ps1                      Builds and runs all self-tests
 ├── README.md
+├── PROJECT_EXPLANATION.md         Submission-ready technical explanation
 ├── ALGORITHM_MAPPING.md          Observable feature-to-algorithm mapping
 ├── TEAM_ROLES.md                 Five-member responsibility split
 ├── config/
