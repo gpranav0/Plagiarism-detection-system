@@ -1,0 +1,29 @@
+# Text preparation and evidence thresholds
+enableExact=true
+enableShingle=true
+enableFuzzy=true
+enableGraph=true
+wordShingleSize=4
+characterShingleSize=9
+minExactPhraseCharacters=28
+candidateThreshold=0.12
+reviewThreshold=0.30
+graphEdgeThreshold=0.28
+
+# Explainable composite-score weights (normalized at runtime)
+exactWeight=0.35
+shingleWeight=0.30
+fuzzyWeight=0.25
+graphWeight=0.10
+
+# Reliability and bounded-processing settings
+maxEvidence=8
+workerCount=4
+maxFileBytes=2000000
+removeStopwords=true
+
+# Project paths (relative paths are resolved from the project root)
+submissionDirectory=data/submissions
+referenceDirectory=data/references
+reportDirectory=reports
+stopwordFile=data/stopwords.txt

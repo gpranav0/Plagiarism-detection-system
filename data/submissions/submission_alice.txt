@@ -1,0 +1,8 @@
+ID: SUB-ALICE
+TITLE: Tree Structures in Similarity Analysis
+AUTHOR: Alice Student
+
+An AVL tree maintains logarithmic height by applying rotations whenever an insertion or deletion creates an excessive balance factor. A left-left imbalance needs a right rotation, while a right-right imbalance needs a left rotation. The mixed left-right and right-left cases use two rotations. These rules keep searching, insertion, and deletion efficient even when keys arrive in sorted order.
+
+I would use the balanced index to retrieve documents before constructing their relationships. A similarity graph represents each document as a vertex and each significant relationship as a weighted edge. Breadth-first search reveals nearby documents, connected components identify groups, a minimum spanning tree keeps the strongest compact relationships, and a shortest-path algorithm traces an indirect chain between sources.
+

@@ -1,0 +1,30 @@
+ALGORITHM BENCHMARKS
+====================
+
+Sorting algorithms (4,000 integer scores from 0 to 10,000; 3 repetitions)
+  Merge sort | n=4000 | runs=3 | avg=2.0364666666666666 ms | min=1.517 ms | max=3.0574 ms
+  Quick sort | n=4000 | runs=3 | avg=1.1782 ms | min=0.817 ms | max=1.8819 ms
+  Heap sort | n=4000 | runs=3 | avg=1.8179333333333332 ms | min=1.7117 ms | max=1.9885 ms
+  Counting sort | n=4000 | runs=3 | avg=0.9936666666666666 ms | min=0.866 ms | max=1.202 ms
+  Radix sort | n=4000 | runs=3 | avg=1.3711666666666666 ms | min=0.634 ms | max=1.7575 ms
+
+Ordered tree insertion (ascending IDs)
+  BST: height=2047, time=21.719 ms, invariant=true
+  AVL: height=11, time=4.359 ms, invariant=true
+
+Multi-way indexes
+  B-tree: size=2047, height=5, invariant=true
+  B+ tree: size=2047, height=7, invariant=true
+
+Candidate selection and bounded parallel comparison
+  Total pairs: 12
+  MinHash candidates: 3
+  Candidate reduction: 75.00%
+  Sequential time: 44.241 ms
+  Parallel time: 42.982 ms
+  Deterministic equality: true
+  Approximate memory delta: 5151504 bytes
+
+Exact versus fuzzy matching (actual first imported document pair)
+  Exact KMP: patternChars=120, runs=50, average=0.006 ms
+  Fuzzy Smith-Waterman: submissionTokens=122, referenceTokens=91, runs=3, average=0.404 ms

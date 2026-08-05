@@ -1,0 +1,30 @@
+ADVANCED PLAGIARISM DETECTION REPORT
+=====================================
+Case ID: TARGET-2-SUB-ALICE-REF-MATCHING
+Submission: SUB-ALICE — Tree Structures in Similarity Analysis
+Reference: REF-MATCHING — Exact and Approximate Text Matching
+Risk: LOW
+Composite score: 0.58%
+
+EXPLAINABLE SCORE COMPONENTS
+  Exact phrase coverage: 0.00%
+  Word/character shingles: 0.46%
+  Fuzzy alignment (Smith-Waterman/LCS/edit): 1.75%
+  Similarity-graph signal: 0.00%
+  Runtime: 12.288 ms
+
+MATCHED EVIDENCE
+
+  Evidence 1 — FUZZY
+    Algorithm: Smith-Waterman + LCS + edit distance
+    Similarity: 1.75%
+    Submission location: line 5, column 157 to line 5, column 162
+    Reference location: line 7, column 18 to line 7, column 23
+    Excerpt: "needs"
+
+GRAPH EVIDENCE
+  This pair did not form a relationship above the configured graph threshold.
+
+REVIEW WORKFLOW
+  Reviewer: not queued (below review threshold)
+  Decision policy: automated results are evidence for human review, not a verdict.

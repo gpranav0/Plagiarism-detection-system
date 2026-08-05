@@ -1,0 +1,8 @@
+ID: SUB-CARA
+TITLE: Field Notes on Coastal Water Sampling
+AUTHOR: Cara Student
+
+The survey team collected water at sunrise from four marked locations along the estuary. Each bottle was rinsed twice at its collection point, sealed below the surface, labeled with the time, and stored in a cooled container. Temperature and salinity were measured on site to reduce changes during transport.
+
+Back in the laboratory, the samples were filtered and compared with calibration blanks. The largest uncertainty came from changing tides rather than instrument repeatability. A second sampling day should therefore use the same tidal window before any conclusion is drawn about long-term water quality.
+

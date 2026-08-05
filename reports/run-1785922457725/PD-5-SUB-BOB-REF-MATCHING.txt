@@ -1,0 +1,80 @@
+ADVANCED PLAGIARISM DETECTION REPORT
+=====================================
+Case ID: PD-5-SUB-BOB-REF-MATCHING
+Submission: SUB-BOB — Comparing Pattern-Matching Strategies
+Reference: REF-MATCHING — Exact and Approximate Text Matching
+Risk: MEDIUM
+Composite score: 52.95%
+
+EXPLAINABLE SCORE COMPONENTS
+  Exact phrase coverage: 37.65%
+  Word/character shingles: 48.12%
+  Fuzzy alignment (Smith-Waterman/LCS/edit): 85.04%
+  Similarity-graph signal: 40.82%
+  Runtime: 138.060 ms
+
+MATCHED EVIDENCE
+
+  Evidence 1 — EXACT
+    Algorithm: Z-algorithm
+    Similarity: 100.00%
+    Submission location: line 5, column 31 to line 5, column 60
+    Reference location: line 5, column 34 to line 5, column 63
+    Excerpt: "preprocesses a pattern into a"
+
+  Evidence 2 — MULTI_PATTERN
+    Algorithm: Aho-Corasick multi-pattern search
+    Similarity: 100.00%
+    Submission location: line 5, column 31 to line 5, column 60
+    Reference location: line 5, column 34 to line 5, column 63
+    Excerpt: "preprocesses a pattern into a"
+
+  Evidence 3 — SHINGLE
+    Algorithm: word-shingle Jaccard
+    Similarity: 48.12%
+    Submission location: line 5, column 31 to line 5, column 67
+    Reference location: line 5, column 34 to line 5, column 70
+    Excerpt: "preprocesses pattern into prefix"
+
+  Evidence 4 — FUZZY
+    Algorithm: Smith-Waterman + LCS + edit distance
+    Similarity: 85.04%
+    Submission location: line 5, column 5 to line 7, column 366
+    Reference location: line 5, column 5 to line 7, column 354
+    Excerpt: "knuth morris pratt method preprocesses pattern into prefix table so one mismatch does not force comparison restart beginning rabin karp uses rolling hash locate candidate positions then verifies original characters preventing collision becoming false match z a..."
+
+  Evidence 5 — EXACT
+    Algorithm: Rabin-Karp (hash verified)
+    Similarity: 100.00%
+    Submission location: line 5, column 132 to line 5, column 162
+    Reference location: line 5, column 123 to line 5, column 153
+    Excerpt: "from the beginning rabin karp"
+
+  Evidence 6 — EXACT
+    Algorithm: Z-algorithm
+    Similarity: 100.00%
+    Submission location: line 5, column 137 to line 5, column 167
+    Reference location: line 5, column 128 to line 5, column 158
+    Excerpt: "the beginning rabin karp uses"
+
+  Evidence 7 — EXACT
+    Algorithm: Z-algorithm
+    Similarity: 100.00%
+    Submission location: line 5, column 170 to line 5, column 202
+    Reference location: line 5, column 161 to line 5, column 193
+    Excerpt: "rolling hash to locate candidate"
+
+  Evidence 8 — EXACT
+    Algorithm: Z-algorithm
+    Similarity: 100.00%
+    Submission location: line 5, column 213 to line 5, column 243
+    Reference location: line 5, column 195 to line 5, column 225
+    Excerpt: "and then verifies the original"
+
+GRAPH EVIDENCE
+  The pair formed a weighted similarity-graph edge; its direct similarity and
+  local connection density contributed 40.82% to the visible graph component.
+
+REVIEW WORKFLOW
+  Reviewer: R1 — Dr. Ananya Rao
+  Decision policy: automated results are evidence for human review, not a verdict.

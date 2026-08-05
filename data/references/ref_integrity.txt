@@ -1,0 +1,8 @@
+ID: REF-INTEGRITY
+TITLE: Responsible Academic Integrity Review
+AUTHOR: Institutional Guidance Corpus
+
+Automated similarity analysis is a screening aid rather than a finding of misconduct. A responsible report preserves matched passages, source locations, algorithm labels, and score components so a trained reviewer can inspect context. Consistent thresholds improve screening, but every consequential decision remains with a human reviewer and must allow verification or appeal.
+
+Reliable batch processing validates each file, records malformed inputs, isolates failed items, and continues with the remaining corpus. Reports should be written through a temporary file before replacement so an interrupted write does not destroy the last usable result.
+

@@ -1,0 +1,8 @@
+ID: REF-MATCHING
+TITLE: Exact and Approximate Text Matching
+AUTHOR: Course Reference Corpus
+
+The Knuth-Morris-Pratt algorithm preprocesses a pattern into a prefix table so a mismatch does not restart the comparison from the beginning. Rabin-Karp uses a rolling hash to locate candidates and then verifies the original characters to prevent a collision from becoming a false match. The Z-algorithm computes prefix agreement for every position in a combined string.
+
+Modified copying needs more than exact search. Word shingles estimate shared local structure, longest common subsequence preserves ordered agreement, edit distance counts transformations, and local alignment recovers the strongest related passage. A composite score should expose these components instead of hiding them behind one unexplained percentage.
+

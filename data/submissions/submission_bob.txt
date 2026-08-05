@@ -1,0 +1,7 @@
+ID: SUB-BOB
+TITLE: Comparing Pattern-Matching Strategies
+AUTHOR: Bob Student
+
+The Knuth-Morris-Pratt method preprocesses a pattern into a prefix table, so one mismatch does not force the comparison to restart from the beginning. Rabin-Karp uses a rolling hash to locate candidate positions and then verifies the original characters, preventing a collision from becoming a false match. A Z-algorithm computes prefix agreement at every position of a combined string.
+
+Modified copying needs more than exact search. Word shingles can estimate shared local structure, longest common subsequence preserves ordered agreement, edit distance counts the transformations, and local alignment recovers the strongest related passage. A composite score must expose those components instead of hiding everything behind one unexplained percentage.

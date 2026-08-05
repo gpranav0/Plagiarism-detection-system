@@ -1,0 +1,30 @@
+ADVANCED PLAGIARISM DETECTION REPORT
+=====================================
+Case ID: SINGLE-1-SUB-ALICE-REF-INTEGRITY
+Submission: SUB-ALICE — Tree Structures in Similarity Analysis
+Reference: REF-INTEGRITY — Responsible Academic Integrity Review
+Risk: LOW
+Composite score: 0.46%
+
+EXPLAINABLE SCORE COMPONENTS
+  Exact phrase coverage: 0.00%
+  Word/character shingles: 0.28%
+  Fuzzy alignment (Smith-Waterman/LCS/edit): 1.52%
+  Similarity-graph signal: 0.00%
+  Runtime: 5.597 ms
+
+MATCHED EVIDENCE
+
+  Evidence 1 — FUZZY
+    Algorithm: Smith-Waterman + LCS + edit distance
+    Similarity: 1.52%
+    Submission location: line 7, column 54 to line 7, column 60
+    Reference location: line 7, column 189 to line 7, column 195
+    Excerpt: "before"
+
+GRAPH EVIDENCE
+  This pair did not form a relationship above the configured graph threshold.
+
+REVIEW WORKFLOW
+  Reviewer: not queued (below review threshold)
+  Decision policy: automated results are evidence for human review, not a verdict.

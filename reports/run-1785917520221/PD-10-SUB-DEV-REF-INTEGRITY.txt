@@ -1,0 +1,80 @@
+ADVANCED PLAGIARISM DETECTION REPORT
+=====================================
+Case ID: PD-10-SUB-DEV-REF-INTEGRITY
+Submission: SUB-DEV — Evidence-Centred Integrity Workflows
+Reference: REF-INTEGRITY — Responsible Academic Integrity Review
+Risk: MEDIUM
+Composite score: 48.87%
+
+EXPLAINABLE SCORE COMPONENTS
+  Exact phrase coverage: 53.62%
+  Word/character shingles: 39.31%
+  Fuzzy alignment (Smith-Waterman/LCS/edit): 58.05%
+  Similarity-graph signal: 37.97%
+  Runtime: 53.552 ms
+
+MATCHED EVIDENCE
+
+  Evidence 1 — EXACT
+    Algorithm: Knuth-Morris-Pratt
+    Similarity: 100.00%
+    Submission location: line 5, column 1 to line 5, column 35
+    Reference location: line 5, column 1 to line 5, column 35
+    Excerpt: "automated similarity analysis is a"
+
+  Evidence 2 — MULTI_PATTERN
+    Algorithm: Aho-Corasick multi-pattern search
+    Similarity: 100.00%
+    Submission location: line 5, column 1 to line 5, column 35
+    Reference location: line 5, column 1 to line 5, column 35
+    Excerpt: "automated similarity analysis is a"
+
+  Evidence 3 — SHINGLE
+    Algorithm: word-shingle Jaccard
+    Similarity: 39.31%
+    Submission location: line 5, column 1 to line 5, column 45
+    Reference location: line 5, column 1 to line 5, column 45
+    Excerpt: "automated similarity analysis screening"
+
+  Evidence 4 — FUZZY
+    Algorithm: Smith-Waterman + LCS + edit distance
+    Similarity: 58.05%
+    Submission location: line 5, column 1 to line 5, column 377
+    Reference location: line 5, column 1 to line 5, column 377
+    Excerpt: "automated similarity analysis screening aid rather than finding misconduct responsible report preserves matched passages source locations algorithm labels score components so trained reviewer can inspect context consistent thresholds improve screening but ever..."
+
+  Evidence 5 — EXACT
+    Algorithm: Rabin-Karp (hash verified)
+    Similarity: 100.00%
+    Submission location: line 5, column 11 to line 5, column 45
+    Reference location: line 5, column 11 to line 5, column 45
+    Excerpt: "similarity analysis is a screening"
+
+  Evidence 6 — EXACT
+    Algorithm: Z-algorithm
+    Similarity: 100.00%
+    Submission location: line 5, column 57 to line 5, column 85
+    Reference location: line 5, column 57 to line 5, column 85
+    Excerpt: "than a finding of misconduct"
+
+  Evidence 7 — EXACT
+    Algorithm: Rabin-Karp (hash verified)
+    Similarity: 100.00%
+    Submission location: line 5, column 64 to line 5, column 100
+    Reference location: line 5, column 64 to line 5, column 100
+    Excerpt: "finding of misconduct a responsible"
+
+  Evidence 8 — EXACT
+    Algorithm: Z-algorithm
+    Similarity: 100.00%
+    Submission location: line 5, column 72 to line 5, column 107
+    Reference location: line 5, column 72 to line 5, column 107
+    Excerpt: "of misconduct a responsible report"
+
+GRAPH EVIDENCE
+  The pair formed a weighted similarity-graph edge; its direct similarity and
+  local connection density contributed 37.97% to the visible graph component.
+
+REVIEW WORKFLOW
+  Reviewer: R2 — Prof. Vikram Sen
+  Decision policy: automated results are evidence for human review, not a verdict.

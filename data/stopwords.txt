@@ -1,0 +1,23 @@
+# One normalized word per line
+a
+an
+and
+are
+as
+at
+be
+by
+for
+from
+in
+is
+it
+of
+on
+or
+that
+the
+this
+to
+with
+

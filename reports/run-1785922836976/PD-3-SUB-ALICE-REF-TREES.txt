@@ -1,0 +1,80 @@
+ADVANCED PLAGIARISM DETECTION REPORT
+=====================================
+Case ID: PD-3-SUB-ALICE-REF-TREES
+Submission: SUB-ALICE — Tree Structures in Similarity Analysis
+Reference: REF-TREES — Balanced Trees and Graph Analytics
+Risk: CRITICAL
+Composite score: 84.90%
+
+EXPLAINABLE SCORE COMPONENTS
+  Exact phrase coverage: 88.17%
+  Word/character shingles: 84.13%
+  Fuzzy alignment (Smith-Waterman/LCS/edit): 89.96%
+  Similarity-graph signal: 63.11%
+  Runtime: 72.790 ms
+
+MATCHED EVIDENCE
+
+  Evidence 1 — EXACT
+    Algorithm: Knuth-Morris-Pratt
+    Similarity: 100.00%
+    Submission location: line 5, column 1 to line 5, column 34
+    Reference location: line 5, column 1 to line 5, column 34
+    Excerpt: "an avl tree maintains logarithmic"
+
+  Evidence 2 — MULTI_PATTERN
+    Algorithm: Aho-Corasick multi-pattern search
+    Similarity: 100.00%
+    Submission location: line 5, column 1 to line 5, column 34
+    Reference location: line 5, column 1 to line 5, column 34
+    Excerpt: "an avl tree maintains logarithmic"
+
+  Evidence 3 — SHINGLE
+    Algorithm: word-shingle Jaccard
+    Similarity: 84.13%
+    Submission location: line 5, column 4 to line 5, column 34
+    Reference location: line 5, column 4 to line 5, column 34
+    Excerpt: "avl tree maintains logarithmic"
+
+  Evidence 4 — FUZZY
+    Algorithm: Smith-Waterman + LCS + edit distance
+    Similarity: 89.96%
+    Submission location: line 5, column 4 to line 7, column 427
+    Reference location: line 5, column 4 to line 7, column 333
+    Excerpt: "avl tree maintains logarithmic height applying rotations whenever insertion deletion creates excessive balance factor left left imbalance needs right rotation while right right imbalance needs left rotation mixed left right right left cases use two rotations t..."
+
+  Evidence 5 — EXACT
+    Algorithm: Rabin-Karp (hash verified)
+    Similarity: 100.00%
+    Submission location: line 5, column 4 to line 5, column 41
+    Reference location: line 5, column 4 to line 5, column 41
+    Excerpt: "avl tree maintains logarithmic height"
+
+  Evidence 6 — EXACT
+    Algorithm: Z-algorithm
+    Similarity: 100.00%
+    Submission location: line 5, column 8 to line 5, column 44
+    Reference location: line 5, column 8 to line 5, column 44
+    Excerpt: "tree maintains logarithmic height by"
+
+  Evidence 7 — EXACT
+    Algorithm: Knuth-Morris-Pratt
+    Similarity: 100.00%
+    Submission location: line 5, column 13 to line 5, column 53
+    Reference location: line 5, column 13 to line 5, column 53
+    Excerpt: "maintains logarithmic height by applying"
+
+  Evidence 8 — EXACT
+    Algorithm: Rabin-Karp (hash verified)
+    Similarity: 100.00%
+    Submission location: line 5, column 23 to line 5, column 63
+    Reference location: line 5, column 23 to line 5, column 63
+    Excerpt: "logarithmic height by applying rotations"
+
+GRAPH EVIDENCE
+  The pair formed a weighted similarity-graph edge; its direct similarity and
+  local connection density contributed 63.11% to the visible graph component.
+
+REVIEW WORKFLOW
+  Reviewer: R1 — Dr. Ananya Rao
+  Decision policy: automated results are evidence for human review, not a verdict.
