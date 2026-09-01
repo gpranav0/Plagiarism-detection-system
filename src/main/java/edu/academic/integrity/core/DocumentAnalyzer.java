@@ -18,6 +18,7 @@ import edu.academic.integrity.model.PassageMatch;
 import edu.academic.integrity.model.ScoreBreakdown;
 import edu.academic.integrity.structures.DynamicArray;
 import edu.academic.integrity.structures.HashSet;
+import edu.academic.integrity.structures.HashTable;
 import edu.academic.integrity.structures.SinglyLinkedList;
 
 /** Runs the explainable exact, shingle, and fuzzy comparison for one pair. */
@@ -56,6 +57,12 @@ public final class DocumentAnalyzer {
 
         String submissionText = submission.normalizedText();
         String referenceText = reference.normalizedText();
+        // Resolve every token's character span once per document. Each evidence item used
+        // to re-scan the whole normalized text to locate its own span, which made the
+        // shingle stage quadratic in document length on exactly the near-duplicate pairs
+        // this tool exists to find. The mapping is identical; it is just computed once.
+        TokenOffsets submissionOffsets = TokenOffsets.of(submission);
+        TokenOffsets referenceOffsets = TokenOffsets.of(reference);
         EvidenceAccumulator evidence = new EvidenceAccumulator();
 
         double exactScore = 0.0;
@@ -88,8 +95,8 @@ public final class DocumentAnalyzer {
             double characterJaccard = jaccard(submissionCharacterShingles,
                     referenceCharacterShingles);
             shingleScore = 0.65 * wordJaccard + 0.35 * characterJaccard;
-            addShingleEvidence(evidence, submission, reference, submissionShingles,
-                    referenceShingles, shingleScore);
+            addShingleEvidence(evidence, submission, reference, submissionOffsets,
+                    referenceOffsets, submissionShingles, referenceShingles, shingleScore);
         }
         checkInterrupted();
 
@@ -107,7 +114,8 @@ public final class DocumentAnalyzer {
             checkInterrupted();
             double editScore = EditDistance.similarity(submissionWindow, referenceWindow);
             fuzzyScore = 0.50 * alignmentScore + 0.30 * lcsScore + 0.20 * editScore;
-            addFuzzyEvidence(evidence, submission, reference, alignment, fuzzyScore);
+            addFuzzyEvidence(evidence, submission, reference, submissionOffsets,
+                    referenceOffsets, alignment, fuzzyScore);
         }
         checkInterrupted();
 
@@ -193,20 +201,26 @@ public final class DocumentAnalyzer {
     }
 
     private void addShingleEvidence(EvidenceAccumulator evidence, Document submission,
-                                    Document reference, String[] submissionShingles,
+                                    Document reference, TokenOffsets submissionOffsets,
+                                    TokenOffsets referenceOffsets, String[] submissionShingles,
                                     String[] referenceShingles, double score) {
-        HashSet<String> referenceSet = new HashSet<>();
-        for (String shingle : referenceShingles) referenceSet.add(shingle);
+        // One pass to record where each reference shingle first occurs. The previous
+        // membership set still needed a full linear re-scan of referenceShingles per hit
+        // to recover that index; this keeps the same first-occurrence semantics in O(1).
+        HashTable<String, Integer> referenceFirstIndex = new HashTable<>();
+        for (int i = 0; i < referenceShingles.length; i++) {
+            referenceFirstIndex.putIfAbsent(referenceShingles[i], i);
+        }
         for (int submissionIndex = 0; submissionIndex < submissionShingles.length;
              submissionIndex++) {
             checkInterrupted();
             String shingle = submissionShingles[submissionIndex];
-            if (!referenceSet.contains(shingle)) continue;
-            int referenceIndex = firstIndexOf(referenceShingles, shingle);
-            if (referenceIndex < 0) continue;
-            int[] submissionSpan = findFilteredTokenSpan(submission,
+            Integer firstReferenceIndex = referenceFirstIndex.get(shingle);
+            if (firstReferenceIndex == null) continue;
+            int referenceIndex = firstReferenceIndex;
+            int[] submissionSpan = submissionOffsets.span(
                     submissionIndex, submissionIndex + settings.wordShingleSize);
-            int[] referenceSpan = findFilteredTokenSpan(reference,
+            int[] referenceSpan = referenceOffsets.span(
                     referenceIndex, referenceIndex + settings.wordShingleSize);
             if (submissionSpan[1] <= submissionSpan[0] || referenceSpan[1] <= referenceSpan[0]) {
                 continue;
@@ -219,13 +233,14 @@ public final class DocumentAnalyzer {
     }
 
     private void addFuzzyEvidence(EvidenceAccumulator evidence, Document submission,
-                                  Document reference, FuzzyAlignment.Result alignment,
-                                  double fuzzyScore) {
+                                  Document reference, TokenOffsets submissionOffsets,
+                                  TokenOffsets referenceOffsets,
+                                  FuzzyAlignment.Result alignment, double fuzzyScore) {
         if (alignment.firstPassageTokens().length == 0 || fuzzyScore <= 0.0) return;
         String firstPassage = alignment.firstPassage();
-        int[] submissionSpan = findFilteredTokenSpan(submission,
+        int[] submissionSpan = submissionOffsets.span(
                 alignment.firstStart(), alignment.firstEndExclusive());
-        int[] referenceSpan = findFilteredTokenSpan(reference,
+        int[] referenceSpan = referenceOffsets.span(
                 alignment.secondStart(), alignment.secondEndExclusive());
         if (submissionSpan[1] <= submissionSpan[0] || referenceSpan[1] <= referenceSpan[0]) return;
         evidence.add(createMatch(MatchType.FUZZY, submission, reference,
@@ -255,31 +270,56 @@ public final class DocumentAnalyzer {
                 similarity, algorithm, excerpt);
     }
 
-    private int[] findFilteredTokenSpan(Document document, int firstToken, int endTokenExclusive) {
-        String[] tokens = document.tokens();
-        if (firstToken < 0 || endTokenExclusive <= firstToken || endTokenExclusive > tokens.length) {
-            return new int[]{0, 0};
+    /**
+     * Character spans of a document's tokens within its normalized text.
+     *
+     * The tokens are the filtered stream (stopwords may have been dropped) while the
+     * normalized text still holds every word, so the positions are recovered by one
+     * left-to-right scan with a monotonic cursor and whole-word boundaries. That scan
+     * used to be repeated from scratch for every piece of evidence, which is what made
+     * the shingle stage quadratic; running it once per document yields the same spans.
+     */
+    private static final class TokenOffsets {
+        private final int[] starts;
+        private final int[] ends;
+        /** Tokens resolved before the scan first failed; queries beyond this yield no span. */
+        private final int resolved;
+
+        private TokenOffsets(int[] starts, int[] ends, int resolved) {
+            this.starts = starts;
+            this.ends = ends;
+            this.resolved = resolved;
         }
-        String normalizedText = document.normalizedText();
-        int cursor = 0;
-        int start = -1;
-        int end = -1;
-        for (int token = 0; token < endTokenExclusive; token++) {
-            int next = indexOfTokenFrom(normalizedText, tokens[token], cursor);
-            if (next < 0) return new int[]{0, 0};
-            if (token == firstToken) start = next;
-            cursor = next + tokens[token].length();
-            if (token >= firstToken) end = cursor;
+
+        static TokenOffsets of(Document document) {
+            String[] tokens = document.tokens();
+            String normalizedText = document.normalizedText();
+            int[] starts = new int[tokens.length];
+            int[] ends = new int[tokens.length];
+            int cursor = 0;
+            int resolved = 0;
+            while (resolved < tokens.length) {
+                int next = indexOfTokenFrom(normalizedText, tokens[resolved], cursor);
+                if (next < 0) break;
+                starts[resolved] = next;
+                cursor = next + tokens[resolved].length();
+                ends[resolved] = cursor;
+                resolved++;
+            }
+            return new TokenOffsets(starts, ends, resolved);
         }
-        return new int[]{start, end};
+
+        /** Span covering tokens [firstToken, endTokenExclusive), or {0,0} when unavailable. */
+        int[] span(int firstToken, int endTokenExclusive) {
+            if (firstToken < 0 || endTokenExclusive <= firstToken
+                    || endTokenExclusive > starts.length || endTokenExclusive > resolved) {
+                return new int[]{0, 0};
+            }
+            return new int[]{starts[firstToken], ends[endTokenExclusive - 1]};
+        }
     }
 
-    private int firstIndexOf(String[] values, String target) {
-        for (int i = 0; i < values.length; i++) if (values[i].equals(target)) return i;
-        return -1;
-    }
-
-    private int indexOfFrom(String text, String pattern, int start) {
+    private static int indexOfFrom(String text, String pattern, int start) {
         if (pattern.isEmpty()) return Math.max(0, start);
         for (int i = Math.max(0, start); i + pattern.length() <= text.length(); i++) {
             int j = 0;
@@ -289,7 +329,7 @@ public final class DocumentAnalyzer {
         return -1;
     }
 
-    private int indexOfTokenFrom(String text, String token, int start) {
+    private static int indexOfTokenFrom(String text, String token, int start) {
         int position = indexOfFrom(text, token, start);
         while (position >= 0) {
             int end = position + token.length();

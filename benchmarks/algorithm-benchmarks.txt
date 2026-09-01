@@ -2,15 +2,15 @@ ALGORITHM BENCHMARKS
 ====================
 
 Sorting algorithms (4,000 integer scores from 0 to 10,000; 3 repetitions)
-  Merge sort | n=4000 | runs=3 | avg=1.6156666666666668 ms | min=1.0063 ms | max=2.409 ms
-  Quick sort | n=4000 | runs=3 | avg=0.8050666666666666 ms | min=0.4752 ms | max=1.4474 ms
-  Heap sort | n=4000 | runs=3 | avg=0.9890333333333333 ms | min=0.8748 ms | max=1.212 ms
-  Counting sort | n=4000 | runs=3 | avg=0.5977 ms | min=0.5818 ms | max=0.6097 ms
-  Radix sort | n=4000 | runs=3 | avg=0.9839333333333333 ms | min=0.6472 ms | max=1.1529 ms
+  Merge sort | n=4000 | runs=3 | avg=1.1502666666666668 ms | min=0.8762 ms | max=1.632 ms
+  Quick sort | n=4000 | runs=3 | avg=0.6653 ms | min=0.4213 ms | max=1.1287 ms
+  Heap sort | n=4000 | runs=3 | avg=0.8624666666666666 ms | min=0.7614 ms | max=1.0433 ms
+  Counting sort | n=4000 | runs=3 | avg=0.5827 ms | min=0.5742 ms | max=0.5888 ms
+  Radix sort | n=4000 | runs=3 | avg=0.9548333333333334 ms | min=0.4433 ms | max=1.2278 ms
 
 Ordered tree insertion (ascending IDs)
-  BST: height=2047, time=13.136 ms, invariant=true
-  AVL: height=11, time=3.480 ms, invariant=true
+  BST: height=2047, time=13.653 ms, invariant=true
+  AVL: height=11, time=3.266 ms, invariant=true
 
 Multi-way indexes
   B-tree: size=2047, height=5, invariant=true
@@ -20,11 +20,11 @@ Candidate selection and bounded parallel comparison
   Total pairs: 12
   MinHash candidates: 3
   Candidate reduction: 75.00%
-  Sequential time: 27.014 ms
-  Parallel time: 28.548 ms
+  Sequential time: 26.345 ms
+  Parallel time: 29.588 ms
   Deterministic equality: true
-  Approximate memory delta: 5146192 bytes
+  Approximate memory delta: 5231008 bytes
 
 Exact versus fuzzy matching (actual first imported document pair)
-  Exact KMP: patternChars=120, runs=50, average=0.006 ms
-  Fuzzy Smith-Waterman: submissionTokens=122, referenceTokens=91, runs=3, average=0.358 ms
+  Exact KMP: patternChars=120, runs=50, average=0.003 ms
+  Fuzzy Smith-Waterman: submissionTokens=122, referenceTokens=91, runs=3, average=0.227 ms

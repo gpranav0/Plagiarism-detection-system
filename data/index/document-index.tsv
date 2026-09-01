@@ -1,10 +1,10 @@
 APDS_DOCUMENT_INDEX
 VERSION	1
 COUNT	7
-RECORD	REF-INTEGRITY	REFERENCE	C:\\Users\\John\\Documents\\dsa3\\AdvancedPlagiarismDetectionSystem\\data\\references\\ref_integrity.txt
-RECORD	REF-MATCHING	REFERENCE	C:\\Users\\John\\Documents\\dsa3\\AdvancedPlagiarismDetectionSystem\\data\\references\\ref_matching.txt
-RECORD	REF-TREES	REFERENCE	C:\\Users\\John\\Documents\\dsa3\\AdvancedPlagiarismDetectionSystem\\data\\references\\ref_trees.txt
-RECORD	SUB-ALICE	SUBMISSION	C:\\Users\\John\\Documents\\dsa3\\AdvancedPlagiarismDetectionSystem\\data\\submissions\\submission_alice.txt
-RECORD	SUB-BOB	SUBMISSION	C:\\Users\\John\\Documents\\dsa3\\AdvancedPlagiarismDetectionSystem\\data\\submissions\\submission_bob.txt
-RECORD	SUB-CARA	SUBMISSION	C:\\Users\\John\\Documents\\dsa3\\AdvancedPlagiarismDetectionSystem\\data\\submissions\\submission_cara.txt
-RECORD	SUB-DEV	SUBMISSION	C:\\Users\\John\\Documents\\dsa3\\AdvancedPlagiarismDetectionSystem\\data\\submissions\\submission_dev.txt
+RECORD	REF-INTEGRITY	REFERENCE	D:\\klh\\dsa3\\AdvancedPlagiarismDetectionSystem\\data\\references\\ref_integrity.txt
+RECORD	REF-MATCHING	REFERENCE	D:\\klh\\dsa3\\AdvancedPlagiarismDetectionSystem\\data\\references\\ref_matching.txt
+RECORD	REF-TREES	REFERENCE	D:\\klh\\dsa3\\AdvancedPlagiarismDetectionSystem\\data\\references\\ref_trees.txt
+RECORD	SUB-ALICE	SUBMISSION	D:\\klh\\dsa3\\AdvancedPlagiarismDetectionSystem\\data\\submissions\\submission_alice.txt
+RECORD	SUB-BOB	SUBMISSION	D:\\klh\\dsa3\\AdvancedPlagiarismDetectionSystem\\data\\submissions\\submission_bob.txt
+RECORD	SUB-CARA	SUBMISSION	D:\\klh\\dsa3\\AdvancedPlagiarismDetectionSystem\\data\\submissions\\submission_cara.txt
+RECORD	SUB-DEV	SUBMISSION	D:\\klh\\dsa3\\AdvancedPlagiarismDetectionSystem\\data\\submissions\\submission_dev.txt

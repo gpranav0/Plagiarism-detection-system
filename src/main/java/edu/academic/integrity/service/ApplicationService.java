@@ -263,9 +263,13 @@ public final class ApplicationService implements AutoCloseable {
     public synchronized ReportEntry[] reportFiles() {
         ensureOpen();
         File root = facade.paths().reports;
-        int count = countReports(root);
-        ReportEntry[] entries = new ReportEntry[count];
-        fillReports(root, root, entries, new int[]{0});
+        // Collected in a single pass. Counting first and filling second walked the
+        // directory twice, and exporting reports writes into that same directory: a file
+        // appearing between the two walks overran the exact-sized array, and one
+        // disappearing left trailing nulls for the comparator below to dereference.
+        ReportCollector collector = new ReportCollector();
+        collectReports(root, root, collector);
+        ReportEntry[] entries = collector.toArray();
         GenericSorts.mergeSort(entries, (first, second) -> {
             int modified = Long.compare(second.modifiedMillis(), first.modifiedMillis());
             return modified != 0 ? modified : compareText(first.relativePath(), second.relativePath());
@@ -526,30 +530,40 @@ public final class ApplicationService implements AutoCloseable {
         return false;
     }
 
-    private int countReports(File directory) {
-        if (directory == null || !directory.isDirectory()) return 0;
-        File[] children = directory.listFiles();
-        if (children == null) return 0;
-        int count = 0;
-        for (File child : children) {
-            if (child.isDirectory()) count += countReports(child);
-            else if (isReport(child)) count++;
-        }
-        return count;
-    }
-
-    private void fillReports(File root, File directory, ReportEntry[] entries, int[] cursor) {
+    private void collectReports(File root, File directory, ReportCollector collector) {
+        if (directory == null || !directory.isDirectory()) return;
         File[] children = directory.listFiles();
         if (children == null) return;
         for (File child : children) {
             if (child.isDirectory()) {
-                fillReports(root, child, entries, cursor);
+                collectReports(root, child, collector);
             } else if (isReport(child)) {
                 String relative = root.toPath().relativize(child.toPath()).toString();
-                entries[cursor[0]++] = new ReportEntry(child, relative,
+                collector.add(new ReportEntry(child, relative,
                         child.getName().toLowerCase().endsWith(".huff"),
-                        child.length(), child.lastModified());
+                        child.length(), child.lastModified()));
             }
+        }
+    }
+
+    /** Growable buffer so the directory only has to be walked once. */
+    private static final class ReportCollector {
+        private ReportEntry[] entries = new ReportEntry[16];
+        private int size;
+
+        void add(ReportEntry entry) {
+            if (size == entries.length) {
+                ReportEntry[] replacement = new ReportEntry[entries.length * 2];
+                System.arraycopy(entries, 0, replacement, 0, entries.length);
+                entries = replacement;
+            }
+            entries[size++] = entry;
+        }
+
+        ReportEntry[] toArray() {
+            ReportEntry[] result = new ReportEntry[size];
+            System.arraycopy(entries, 0, result, 0, size);
+            return result;
         }
     }
 

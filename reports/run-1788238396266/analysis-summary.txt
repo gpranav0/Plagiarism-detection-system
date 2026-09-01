@@ -1,0 +1,13 @@
+PLAGIARISM ANALYSIS BATCH SUMMARY
+=================================
+Total possible pairs: 12
+MinHash candidates: 3
+Verified comparisons: 3
+Candidate reduction: 75.00%
+Execution mode: bounded parallel
+Elapsed: 107.940 ms
+Cases emitted: 3
+
+PD-3-SUB-ALICE-REF-TREES | SUB-ALICE <-> REF-TREES | 84.90% | CRITICAL | R1
+PD-5-SUB-BOB-REF-MATCHING | SUB-BOB <-> REF-MATCHING | 52.95% | MEDIUM | R1
+PD-10-SUB-DEV-REF-INTEGRITY | SUB-DEV <-> REF-INTEGRITY | 48.87% | MEDIUM | R2
